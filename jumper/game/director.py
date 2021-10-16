@@ -1,10 +1,31 @@
-
+from display import Display
+from secretword import SecretWord
+from jumper import Jumper
 
 class Director: # Directs the game. (tracks game state, turns, and flow control.)
+	"""A code template for a person who directs the game. The responsibility of 
+    this class of objects is to track score, turns, and control sequence of play.
+
+    
+    Attributes:
+		currentPlayer (string): Represents who is playing. Either "P1" or "P2".
+        isRunning (boolean): Whether or not the game is running.
+        p1score (number): The total number of points earned by Player 1.
+		p2score (number): The total number of points earned by Player 2.
+        display (Display): An instance of the class of objects known as Display.
+		secretWord (SecretWord): An instance of the class of objects known as SecretWord.
+		jumper (Jumper): An instance of the class of objects known as Jumper.
+    """
 
 	def __init__(self):
-		self.currentPlayer = "P1" 	# is either P1 or P2
-		self.isRunning = True 		# determines if the game is currently running
+		"""Initializes the Director class object with scores of 0, a Display/SecretWord/Jumper objects,
+		the game running, and the first player as "P1".
+
+        Args:
+            self (Director): An instance of Director.
+        """
+		self.currentPlayer = "P1"
+		self.isRunning = True
 		self.p1Score = 0
 		self.p2Score = 0
 
@@ -23,6 +44,14 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
 				self.isRunning = False
 
 	def play_round(self):
+		"""Plays one round of the game. Displays the word and jumper, guesses, and repeats until the round ends.
+
+        Args:
+            self (Director): An instance of Director.
+        
+        Returns:
+            boolean: Representing if the currentPlayer won the round.
+        """
 		# so I don't have to write "self." every two seconds
 		display = self.display
 		secretWord = self.secretWord
@@ -44,10 +73,23 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
 		display.show(secretWord) 
 		display.show(jumper)
 
-		return jumper.isAlive() # return if they won
+		return jumper.isAlive() # if Jumper is still alive, they won
 
-	def addPoint(self): # to the current player
-		pass
+	def addPoint(self):
+		"""Adds one point to whoever is currently playing
+
+        Args:
+            self (Director): An instance of Director.
+        """
+		if self.currentPlayer == "P1":
+			self.p1Score += 1
+		else:
+			self.p2Score += 1
 
 	def toggleCurrentPlayer(self):
-		pass
+		"""Swaps the currentPlayer. Either P1 to P2 or vice versa.
+
+        Args:
+            self (Director): An instance of Director.
+        """
+		self.currentPlayer = "P2" if self.currentPlayer == "P1" else "P1"
