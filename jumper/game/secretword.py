@@ -1,5 +1,19 @@
 class SecretChar:
+	"""A code template for the secretchar. The responsibility of 
+    this class of objects is to store a char and whether it is hidden.
+
+    
+    Attributes:
+        isHidden (Boolean): Represents if the char is hidden.
+		letter (char): The letter to display when not hidden.
+    """
 	def __init__(self, letter):
+		"""Initializes the SecretChar class object as hidden with a letter.
+
+        Args:
+            self (SecretChar): An instance of SecretChar.
+			letter (char): The letter to keep a secret.
+        """
 		self.isHidden = True
 		self.letter = letter
 
