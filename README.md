@@ -24,5 +24,7 @@ root                    (project root folder)
 Python 3.8.0
 
 # Authors
-Chase Duggan - dug21002@byui.edu
-Tyson Freeze - fre21024@byui.edu
+* Chase Duggan - dug21002@byui.edu
+* Tyson Freeze - fre21024@byui.edu
+* Alex Okeefe - oke20002@byui.edu
+* Eber Torres - tor16002@byui.edu
