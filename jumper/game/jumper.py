@@ -1,5 +1,5 @@
 
-
+# Alex
 class Jumper: # Models the jumper guy. (tracks the state of the parachute and jumper.)
 	
 	def __init__(self):
@@ -9,6 +9,9 @@ class Jumper: # Models the jumper guy. (tracks the state of the parachute and ju
 		pass
 
 	def getNumStrands(self):
+		pass
+
+	def getNumStrandsLeft(self):
 		pass
 
 	def isAlive(self):
