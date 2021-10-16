@@ -1,18 +1,15 @@
-import random
 
-class Jumper:
 
-    def open_file(self):
-        """ Import text file of words 
+class Jumper: # Models the jumper guy. (tracks the state of the parachute and jumper.)
+	
+	def __init__(self):
+		self.parachuteStrands = 4
 
-        """
-        with open("words.txt") as f:
-            word_list = f.read().splitlines()
+	def breakStrands(self):
+		pass
 
-    def random_word(self):
-        """ Gets random words from the text file to guess
+	def getNumStrands(self):
+		pass
 
-        """
-        random_num = random.randint(0, len(self.open_file.word_list)-1)
-        word_chosen = self.open_file.word_list[random_num]
-        return random_num
+	def isAlive(self):
+		pass

@@ -1,16 +1,53 @@
 
 
-class Director:
+class Director: # Directs the game. (tracks game state, turns, and flow control.)
 
-    def int(self):
-        pass
+	def __init__(self):
+		self.currentPlayer = "P1" 	# is either P1 or P2
+		self.isRunning = True 		# determines if the game is currently running
+		self.p1Score = 0
+		self.p2Score = 0
 
-    def jumper(self):
-        guess = input("Guess a letter [a-z]:").lower()
-        if guess in self.secret_word:
-            return False
-        else:
-            return True
-    #I chose to arange the true false because I thought that what ever jumper it goes to whether to cut the parachute or not. Feel free to change it
-    #I like the enhancement of the word selection from being an external file. there is a prepared file with a bunch of words.
-'''Compares to see if the user's input is in the string and returns either true or false'''
+		self.display = Display()
+		self.secretWord = SecretWord()
+		self.jumper = Jumper()
+
+	def run_game(self):
+		while self.isRunning:
+			didWin = self.play_round()
+
+			if didWin:
+				self.addPoint()
+			
+			if self.display.promptEndGame().lower() == 'y':
+				self.isRunning = False
+
+	def play_round(self):
+		# so I don't have to write "self." every two seconds
+		display = self.display
+		secretWord = self.secretWord
+		jumper = self.jumper
+
+		secretWord.setWord(display.promptNewWord(self.currentPlayer))
+		self.toggleCurrentPlayer()
+		display.clearScreen() # so p2 can't see the word p1 chose
+
+		while secretWord.isUnsolved() and jumper.isAlive():
+			display.show(secretWord)
+			display.show(jumper)
+
+			letter = display.promptForLetter(self.currentPlayer)
+			if not secretWord.guess(letter):
+				jumper.breakStrands()
+
+		# final view; no guess
+		display.show(secretWord) 
+		display.show(jumper)
+
+		return jumper.isAlive() # return if they won
+
+	def addPoint(self): # to the current player
+		pass
+
+	def toggleCurrentPlayer(self):
+		pass
