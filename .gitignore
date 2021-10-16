@@ -1,2 +1,8 @@
 Jumper Design Doc.py
 .DS_Store
+jumper/game/__pycache__/__init__.cpython-39.pyc
+.gitignore
+jumper/game/__pycache__/director.cpython-39.pyc
+jumper/game/__pycache__/secretword.cpython-39.pyc
+jumper/game/__pycache__/jumper.cpython-39.pyc
+jumper/game/__pycache__/display.cpython-39.pyc
