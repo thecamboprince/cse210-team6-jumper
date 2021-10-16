@@ -1,6 +1,6 @@
-from display import Display
-from secretword import SecretWord
-from jumper import Jumper
+from game.display import Display
+from game.secretword import SecretWord
+from game.jumper import Jumper
 
 class Director: # Directs the game. (tracks game state, turns, and flow control.)
 	"""A code template for a person who directs the game. The responsibility of 
@@ -13,12 +13,10 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
         p1score (number): The total number of points earned by Player 1.
 		p2score (number): The total number of points earned by Player 2.
         display (Display): An instance of the class of objects known as Display.
-		secretWord (SecretWord): An instance of the class of objects known as SecretWord.
-		jumper (Jumper): An instance of the class of objects known as Jumper.
     """
 
 	def __init__(self):
-		"""Initializes the Director class object with scores of 0, a Display/SecretWord/Jumper objects,
+		"""Initializes the Director class object with scores of 0 and a Display object,
 		the game running, and the first player as "P1".
 
         Args:
@@ -30,8 +28,6 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
 		self.p2Score = 0
 
 		self.display = Display()
-		self.secretWord = SecretWord()
-		self.jumper = Jumper()
 
 	def run_game(self):
 		while self.isRunning:
@@ -39,9 +35,11 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
 
 			if didWin:
 				self.addPoint()
-			
+			self.display.show(f"P1 Score: {self.p1Score}, P2 Score: {self.p2Score}")
 			if self.display.promptEndGame().lower() == 'y':
 				self.isRunning = False
+			else:
+				self.display.clearScreen()
 
 	def play_round(self):
 		"""Plays one round of the game. Displays the word and jumper, guesses, and repeats until the round ends.
@@ -53,15 +51,16 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
             boolean: Representing if the currentPlayer won the round.
         """
 		# so I don't have to write "self." every two seconds
-		display = self.display
-		secretWord = self.secretWord
-		jumper = self.jumper
+		display = self.display = Display()
+		secretWord = SecretWord()
+		jumper  = Jumper()
 
 		secretWord.setWord(display.promptNewWord(self.currentPlayer))
 		self.toggleCurrentPlayer()
 		display.clearScreen() # so p2 can't see the word p1 chose
 
 		while secretWord.isUnsolved() and jumper.isAlive():
+			display.show("\n\n")
 			display.show(secretWord)
 			display.show(jumper)
 
@@ -70,6 +69,7 @@ class Director: # Directs the game. (tracks game state, turns, and flow control.
 				jumper.breakStrands()
 
 		# final view; no guess
+		display.show("\n\n")
 		display.show(secretWord) 
 		display.show(jumper)
 

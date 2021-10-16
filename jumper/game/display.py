@@ -9,9 +9,6 @@ class Display:
         Attributes:
             display (Display): An instance of Display.
 			parachuteModel (Array): set of objects for displaying a figure
-			secretWord (SecretWord): An instance of the class of objects known as SecretWord.
-			objToDisplay (objToDisplay): An instance of the class of objects known as objToDisplay.
-			currentPlayer (currentPlayer): An instance of the class of objects known as currentPlayer.
     """
 
 	def __init__(self):
@@ -21,6 +18,7 @@ class Display:
 			self (Display): an instance of Display	
 		"""
 		self.parachuteModel = ["  ___  "," /___\ "," \   / ","  \ /  "]
+		self.jumpManModel = ["   0   ","  /|\  ","  / \  "]
 
 
 	def promptNewWord(self, currentPlayer):
@@ -60,35 +58,32 @@ class Display:
 			printjumpman (printjumpman): prints the model of jumpman
 			
 		"""
-		if objToDisplay is SecretWord:
+		if type(objToDisplay) is SecretWord:
 			placeholder = ""
-			for i in range (0, objToDisplay.getLenth()):
+			for i in range (0, objToDisplay.getLength()):
 				# placeholder += objToDisplay.getChar(i) + " "
 				placeholder = placeholder + objToDisplay.getChar(i) + " "
 			print(placeholder)
-		elif objToDisplay is Jumper:
-			for i in range (objToDisplay.getNumStrands() - objToDisplay.getNumStrandsLeft(), objToDisplay.getNumStrands()):
-				print(self.parachuteModel[i])
-			self.printjumpman()
+		elif type(objToDisplay) is Jumper:
+			for i in range (0, objToDisplay.getChuteSize()):
+				if i >= objToDisplay.getChuteSize() - objToDisplay.getStrandsLeft():
+					print(self.parachuteModel[i])
+				else:
+					print("")
+			self.printJumpMan(objToDisplay)
 		else:
 			print(objToDisplay)
 		
 
 
-	def printjumpman(self, jumper):
+	def printJumpMan(self, jumper):
 		""" Creates model of the jumpman
 
 		Args:
 			self (Display): an instance of Display
 		"""
-		jumpManModel = [
-		"   0   ",
-		"  /|\  ",
-		"  / \  "
-		]
-
 		i = 0
-		for part in jumpManModel:
+		for part in self.jumpManModel:
 			if not jumper.isAlive() and i == 0:
 				print("   X   ")
 			else:
