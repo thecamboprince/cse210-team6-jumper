@@ -26,3 +26,4 @@ Python 3.8.0
 # Authors
 Chase Duggan - dug21002@byui.edu
 Tyson Freeze - fre21024@byui.edu
+Eber Torres  - tor16002@byui.edu
